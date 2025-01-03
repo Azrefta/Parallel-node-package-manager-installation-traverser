@@ -27,8 +27,10 @@ async function installModules(configPath, isPerformanceMode) {
 
   try {
     if (isPerformanceMode) {
+      // Execute all module installations concurrently
       await Promise.all(installPromises);
     } else {
+      // Execute module installations sequentially
       for (const promise of installPromises) {
         await promise;
       }
@@ -127,27 +129,19 @@ async function installFromUrl(source) {
   });
 }
 
-// Entry point: auto-execute when required
-(async () => {
+// Entry point to install modules based on the config
+async function startInstallation() {
   try {
     const configPath = path.resolve(__dirname, "../../package.json");
     const packageJson = JSON.parse(fs.readFileSync(configPath, "utf-8"));
     const isPerformanceMode = packageJson["dependencies-custom"]?.performance === true;
 
     await installModules(configPath, isPerformanceMode);
-  } catch (err) {
-    console.error("Error:", err.message);
-    process.exit(1);
-  }
-})();
-
-(async () => {
-  try {
-    const configPath = path.resolve(__dirname, "../../package.json");
-    const isPerformanceMode = true; 
-    await installModules(configPath, isPerformanceMode);
     console.log("All dependencies have been installed successfully.");
   } catch (err) {
     console.error("Installation failed:", err.message);
+    process.exit(1);
   }
-})();
+}
+
+startInstallation();
