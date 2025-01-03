@@ -1,0 +1,22 @@
+{
+  "name": "installer",
+  "version": "1.0.0",
+  "description": "A module to install dependencies efficiently based on a custom configuration.",
+  "main": "index.js",
+  "type": "commonjs",
+  "keywords": [
+    "installer",
+    "dependencies",
+    "npm",
+    "efficient-installation",
+    "custom-dependencies"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.4.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
